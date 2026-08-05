@@ -1,0 +1,56 @@
+name: Release
+
+on:
+  push:
+    tags: ['v*.*.*']
+
+permissions:
+  contents: write
+
+jobs:
+  tag-major:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with: { fetch-depth: 0 }
+
+      # I4: Actions' tag glob `*` matches any character but `/`, so the trigger above
+      # (`v*.*.*`) also fires for a prerelease like `v2.0.0-rc.1`, and
+      # `MAJOR="${GITHUB_REF_NAME%%.*}"` below would still reduce it to `v2` — silently
+      # force-moving every consumer pinned to `@v2` onto an untested release candidate.
+      # This guard narrows the actual release step to an exact `vMAJOR.MINOR.PATCH` tag;
+      # anything else is left alone.
+      - name: Check that the tag is an exact release, not a prerelease
+        id: guard
+        run: |
+          if [[ "$GITHUB_REF_NAME" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "release=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "release=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::$GITHUB_REF_NAME does not match vMAJOR.MINOR.PATCH exactly (prerelease or malformed) — not moving the floating major tag."
+          fi
+
+      - uses: actions/setup-node@v4
+        if: steps.guard.outputs.release == 'true'
+        with:
+          node-version: '24'
+          cache: npm
+
+      # I5: for a bundled action dist/index.js is the published artefact, and ci.yml triggers
+      # only on branch pushes and pull requests, never on tags — so nothing re-verifies the
+      # tagged commit before the major tag is force-moved onto it. Re-run the same checks CI
+      # runs before touching the tag.
+      - name: Verify the tagged commit builds, tests green, and dist/ is up to date
+        if: steps.guard.outputs.release == 'true'
+        run: |
+          npm ci
+          npm test
+          npm run build
+          git diff --exit-code -- dist/
+
+      - name: Move the floating major tag
+        if: steps.guard.outputs.release == 'true'
+        run: |
+          MAJOR="${GITHUB_REF_NAME%%.*}"
+          git tag -f "$MAJOR"
+          git push origin -f "$MAJOR"

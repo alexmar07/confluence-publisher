@@ -1,0 +1,8 @@
+{
+  "request": { "method": "GET", "urlPath": "/wiki/api/v2/pages/2000/descendants" },
+  "response": {
+    "status": 200,
+    "headers": { "Content-Type": "application/json" },
+    "jsonBody": { "results": [], "_links": {} }
+  }
+}

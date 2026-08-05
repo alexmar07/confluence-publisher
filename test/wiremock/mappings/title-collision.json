@@ -1,0 +1,12 @@
+{
+  "request": {
+    "method": "GET",
+    "urlPath": "/wiki/api/v2/pages",
+    "queryParameters": { "title": { "equalTo": "Contested" } }
+  },
+  "response": {
+    "status": 200,
+    "headers": { "Content-Type": "application/json" },
+    "jsonBody": { "results": [{ "id": "600", "title": "Contested", "status": "current", "spaceId": "42" }], "_links": {} }
+  }
+}

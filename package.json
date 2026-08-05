@@ -1,0 +1,37 @@
+{
+  "name": "confluence-docs-publisher",
+  "version": "0.1.0",
+  "description": "Publish a Markdown folder to Confluence Cloud via REST API v2",
+  "scripts": {
+    "test": "vitest run",
+    "build": "esbuild src/main.ts --bundle --platform=node --target=node24 --format=cjs --outfile=dist/index.js && node -e \"require('fs').writeFileSync('dist/package.json', JSON.stringify({type:'commonjs'})+'\\n')\"",
+    "test:integration": "vitest run --config vitest.integration.config.ts",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "format": "prettier --write .",
+    "test:local": "npm run build && act workflow_dispatch -W .github/workflows/local-test.yml"
+  },
+  "license": "MIT",
+  "type": "module",
+  "private": false,
+  "dependencies": {
+    "@actions/core": "^3.0.1",
+    "@actions/glob": "^0.7.0",
+    "remark-frontmatter": "^5.0.0",
+    "remark-gfm": "^4.0.1",
+    "remark-parse": "^11.0.0",
+    "unified": "^11.0.5"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@types/mdast": "^4.0.4",
+    "@types/node": "^24.13.3",
+    "esbuild": "^0.28.1",
+    "eslint": "^10.8.0",
+    "prettier": "^3.9.6",
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.65.0",
+    "vitest": "^4.1.10",
+    "yaml": "^2.9.0"
+  }
+}

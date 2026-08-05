@@ -1,0 +1,12 @@
+{
+  "request": {
+    "method": "GET",
+    "urlPath": "/wiki/api/v2/pages",
+    "queryParameters": { "title": { "equalTo": "Adoptable" } }
+  },
+  "response": {
+    "status": 200,
+    "headers": { "Content-Type": "application/json" },
+    "jsonBody": { "results": [{ "id": "700", "title": "Adoptable", "status": "current", "parentId": "2000", "spaceId": "42" }], "_links": {} }
+  }
+}

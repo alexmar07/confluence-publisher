@@ -1,0 +1,11 @@
+{
+  "scenarioName": "version-conflict",
+  "requiredScenarioState": "Started",
+  "newScenarioState": "settled",
+  "request": { "method": "PUT", "urlPath": "/wiki/api/v2/pages/500" },
+  "response": {
+    "status": 409,
+    "headers": { "Content-Type": "application/json" },
+    "jsonBody": { "errors": [{ "title": "Conflict", "detail": "Version must be incremented by one" }] }
+  }
+}

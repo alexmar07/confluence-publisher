@@ -1,0 +1,8 @@
+{
+  "request": { "method": "PUT", "urlPath": "/wiki/api/v2/pages/700" },
+  "response": {
+    "status": 200,
+    "headers": { "Content-Type": "application/json" },
+    "jsonBody": { "id": "700", "title": "Adoptable", "status": "current", "parentId": "2000", "spaceId": "42" }
+  }
+}

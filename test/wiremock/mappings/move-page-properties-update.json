@@ -1,0 +1,8 @@
+{
+  "request": { "method": "PUT", "urlPathPattern": "/wiki/api/v2/pages/4100/properties/[0-9]+" },
+  "response": {
+    "status": 200,
+    "headers": { "Content-Type": "application/json" },
+    "jsonBody": { "id": "9002" }
+  }
+}

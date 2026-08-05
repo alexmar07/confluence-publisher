@@ -1,0 +1,8 @@
+{
+  "request": { "method": "POST", "urlPath": "/wiki/rest/api/content/800/child/attachment/8001/data" },
+  "response": {
+    "status": 200,
+    "headers": { "Content-Type": "application/json" },
+    "jsonBody": { "id": "8001", "title": "diagram.png" }
+  }
+}

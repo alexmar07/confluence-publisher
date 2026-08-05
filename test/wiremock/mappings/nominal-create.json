@@ -1,0 +1,16 @@
+{
+  "priority": 10,
+  "request": { "method": "POST", "urlPath": "/wiki/api/v2/pages" },
+  "response": {
+    "status": 200,
+    "headers": { "Content-Type": "application/json" },
+    "transformers": ["response-template"],
+    "jsonBody": {
+      "id": "{{randomValue type='NUMERIC' length=6}}",
+      "title": "{{jsonPath request.body '$.title'}}",
+      "status": "current",
+      "parentId": "{{jsonPath request.body '$.parentId'}}",
+      "spaceId": "42"
+    }
+  }
+}

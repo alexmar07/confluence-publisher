@@ -1,0 +1,14 @@
+{
+  "scenarioName": "rate-limit",
+  "requiredScenarioState": "recovered",
+  "request": {
+    "method": "POST",
+    "urlPath": "/wiki/api/v2/pages",
+    "bodyPatterns": [{ "matchesJsonPath": "$[?(@.title == 'Rate limited')]" }]
+  },
+  "response": {
+    "status": 200,
+    "headers": { "Content-Type": "application/json" },
+    "jsonBody": { "id": "900", "title": "Rate limited", "status": "current", "parentId": "1", "spaceId": "42" }
+  }
+}

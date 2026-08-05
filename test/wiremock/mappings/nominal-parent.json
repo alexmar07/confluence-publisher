@@ -1,0 +1,8 @@
+{
+  "request": { "method": "GET", "urlPath": "/wiki/api/v2/pages/2000" },
+  "response": {
+    "status": 200,
+    "headers": { "Content-Type": "application/json" },
+    "jsonBody": { "id": "2000", "title": "Test root", "status": "current", "spaceId": "42", "version": { "number": 3 } }
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "request": { "method": "GET", "urlPath": "/wiki/api/v2/pages/800/attachments" },
+  "response": {
+    "status": 200,
+    "headers": { "Content-Type": "application/json" },
+    "jsonBody": { "results": [{ "id": "8001", "title": "diagram.png" }], "_links": {} }
+  }
+}

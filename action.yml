@@ -1,0 +1,36 @@
+name: "Confluence Docs Publisher"
+description: "Publish a Markdown folder to Confluence Cloud (REST API v2), idempotently and resiliently"
+branding: { icon: "book-open", color: "blue" }
+inputs:
+  folder:            { required: true,  description: "Root folder of the Markdown files, relative to the repository root" }
+  base-url:          { required: true,  description: "https://<tenant>.atlassian.net" }
+  username:          { required: true,  description: "Email address of the Atlassian account" }
+  api-token:         { required: true,  description: "Atlassian API token" }
+  space-key:         { required: true,  description: "Key of the Confluence space" }
+  parent-page-id:    { required: true,  description: "Id of the root page to publish under" }
+  include:           { required: false, default: "**/*.md", description: "Glob of files to include, relative to folder" }
+  exclude:           { required: false, default: "",         description: "Excluded globs, relative to folder, newline-separated" }
+  title-strategy:    { required: false, default: "h1",       description: "h1 | filename | frontmatter" }
+  dry-run:           { required: false, default: "false",    description: "Plan and report the changes without writing anything to Confluence" }
+  fail-on-error:     { required: false, default: "true",      description: "Fail the job when at least one page fails to publish" }
+  orphans:           { required: false, default: "report",   description: "report | ignore" }
+  concurrency:       { required: false, default: "4",         description: "Maximum number of pages processed in parallel, minimum 1" }
+  request-timeout-ms: { required: false, default: "30000",    description: "Timeout of a single Confluence HTTP request in milliseconds, minimum 1000" }
+  max-retries:       { required: false, default: "5",         description: "Retries per request on 429, 502, 503 and 504 responses, with exponential backoff and jitter" }
+  version-message:   { required: false, default: "Updated by GitHub Actions", description: "Message recorded in the Confluence page version history" }
+  add-source-footer: { required: false, default: "true",      description: "Append a footer linking each page back to its source file at the published commit" }
+  mermaid-macro:     { required: false, default: "code",     description: "Macro used for mermaid code blocks: code | <marketplace macro name>" }
+outputs:
+  created:    { description: "Pages created from a source file" }
+  updated:    { description: "Pages updated from a source file" }
+  moved:      { description: "Pages repositioned in the hierarchy" }
+  skipped:    { description: "Unchanged pages" }
+  failed:     { description: "Failed pages" }
+  containers:  { description: "Synthetic container pages created or updated, counted separately" }
+  attachments: { description: "Attachments uploaded or replaced" }
+  orphans:    { description: "Orphan pages detected" }
+  unmanaged:  { description: "Pages with no tracking property" }
+  report:     { description: "Full JSON report of the outcomes" }
+runs:
+  using: "node24"
+  main: "dist/index.js"

@@ -1,0 +1,13 @@
+{
+  "request": { "method": "GET", "urlPath": "/wiki/api/v2/pages/600/properties" },
+  "response": {
+    "status": 200,
+    "headers": { "Content-Type": "application/json" },
+    "jsonBody": {
+      "results": [
+        { "id": "1", "key": "confluence-docs-publisher.source-path", "value": "docs/altro.md", "version": { "number": 1 } }
+      ],
+      "_links": {}
+    }
+  }
+}

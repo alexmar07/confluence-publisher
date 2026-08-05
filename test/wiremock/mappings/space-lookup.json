@@ -1,0 +1,12 @@
+{
+  "request": {
+    "method": "GET",
+    "urlPath": "/wiki/api/v2/spaces",
+    "queryParameters": { "keys": { "equalTo": "DOC" } }
+  },
+  "response": {
+    "status": 200,
+    "headers": { "Content-Type": "application/json" },
+    "jsonBody": { "results": [{ "id": "42", "key": "DOC" }], "_links": {} }
+  }
+}

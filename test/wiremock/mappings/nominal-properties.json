@@ -1,0 +1,9 @@
+{
+  "priority": 10,
+  "request": { "method": "POST", "urlPathPattern": "/wiki/api/v2/pages/[0-9]+/properties" },
+  "response": {
+    "status": 200,
+    "headers": { "Content-Type": "application/json" },
+    "jsonBody": { "id": "9001" }
+  }
+}

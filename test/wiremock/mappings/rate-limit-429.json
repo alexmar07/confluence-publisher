@@ -1,0 +1,11 @@
+{
+  "scenarioName": "rate-limit",
+  "requiredScenarioState": "Started",
+  "newScenarioState": "recovered",
+  "request": {
+    "method": "POST",
+    "urlPath": "/wiki/api/v2/pages",
+    "bodyPatterns": [{ "matchesJsonPath": "$[?(@.title == 'Rate limited')]" }]
+  },
+  "response": { "status": 429, "headers": { "Retry-After": "1" }, "body": "rate limited" }
+}

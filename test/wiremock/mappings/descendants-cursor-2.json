@@ -1,0 +1,502 @@
+{
+  "request": {
+    "method": "GET",
+    "urlPath": "/wiki/api/v2/pages/1/descendants",
+    "queryParameters": {
+      "cursor": {
+        "equalTo": "second"
+      }
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "jsonBody": {
+      "results": [
+        {
+          "id": "1250",
+          "title": "Descendant 1250",
+          "status": "current",
+          "type": "page",
+          "parentId": "1",
+          "depth": 1
+        },
+        {
+          "id": "1251",
+          "title": "Descendant 1251",
+          "status": "current",
+          "type": "page",
+          "parentId": "1",
+          "depth": 1
+        },
+        {
+          "id": "1252",
+          "title": "Descendant 1252",
+          "status": "current",
+          "type": "page",
+          "parentId": "1",
+          "depth": 1
+        },
+        {
+          "id": "1253",
+          "title": "Descendant 1253",
+          "status": "current",
+          "type": "page",
+          "parentId": "1",
+          "depth": 1
+        },
+        {
+          "id": "1254",
+          "title": "Descendant 1254",
+          "status": "current",
+          "type": "page",
+          "parentId": "1",
+          "depth": 1
+        },
+        {
+          "id": "1255",
+          "title": "Descendant 1255",
+          "status": "current",
+          "type": "page",
+          "parentId": "1",
+          "depth": 1
+        },
+        {
+          "id": "1256",
+          "title": "Descendant 1256",
+          "status": "current",
+          "type": "page",
+          "parentId": "1",
+          "depth": 1
+        },
+        {
+          "id": "1257",
+          "title": "Descendant 1257",
+          "status": "current",
+          "type": "page",
+          "parentId": "1",
+          "depth": 1
+        },
+        {
+          "id": "1258",
+          "title": "Descendant 1258",
+          "status": "current",
+          "type": "page",
+          "parentId": "1",
+          "depth": 1
+        },
+        {
+          "id": "1259",
+          "title": "Descendant 1259",
+          "status": "current",
+          "type": "page",
+          "parentId": "1",
+          "depth": 1
+        },
+        {
+          "id": "1260",
+          "title": "Descendant 1260",
+          "status": "current",
+          "type": "page",
+          "parentId": "1",
+          "depth": 1
+        },
+        {
+          "id": "1261",
+          "title": "Descendant 1261",
+          "status": "current",
+          "type": "page",
+          "parentId": "1",
+          "depth": 1
+        },
+        {
+          "id": "1262",
+          "title": "Descendant 1262",
+          "status": "current",
+          "type": "page",
+          "parentId": "1",
+          "depth": 1
+        },
+        {
+          "id": "1263",
+          "title": "Descendant 1263",
+          "status": "current",
+          "type": "page",
+          "parentId": "1",
+          "depth": 1
+        },
+        {
+          "id": "1264",
+          "title": "Descendant 1264",
+          "status": "current",
+          "type": "page",
+          "parentId": "1",
+          "depth": 1
+        },
+        {
+          "id": "1265",
+          "title": "Descendant 1265",
+          "status": "current",
+          "type": "page",
+          "parentId": "1",
+          "depth": 1
+        },
+        {
+          "id": "1266",
+          "title": "Descendant 1266",
+          "status": "current",
+          "type": "page",
+          "parentId": "1",
+          "depth": 1
+        },
+        {
+          "id": "1267",
+          "title": "Descendant 1267",
+          "status": "current",
+          "type": "page",
+          "parentId": "1",
+          "depth": 1
+        },
+        {
+          "id": "1268",
+          "title": "Descendant 1268",
+          "status": "current",
+          "type": "page",
+          "parentId": "1",
+          "depth": 1
+        },
+        {
+          "id": "1269",
+          "title": "Descendant 1269",
+          "status": "current",
+          "type": "page",
+          "parentId": "1",
+          "depth": 1
+        },
+        {
+          "id": "1270",
+          "title": "Descendant 1270",
+          "status": "current",
+          "type": "page",
+          "parentId": "1",
+          "depth": 1
+        },
+        {
+          "id": "1271",
+          "title": "Descendant 1271",
+          "status": "current",
+          "type": "page",
+          "parentId": "1",
+          "depth": 1
+        },
+        {
+          "id": "1272",
+          "title": "Descendant 1272",
+          "status": "current",
+          "type": "page",
+          "parentId": "1",
+          "depth": 1
+        },
+        {
+          "id": "1273",
+          "title": "Descendant 1273",
+          "status": "current",
+          "type": "page",
+          "parentId": "1",
+          "depth": 1
+        },
+        {
+          "id": "1274",
+          "title": "Descendant 1274",
+          "status": "current",
+          "type": "page",
+          "parentId": "1",
+          "depth": 1
+        },
+        {
+          "id": "1275",
+          "title": "Descendant 1275",
+          "status": "current",
+          "type": "page",
+          "parentId": "1",
+          "depth": 1
+        },
+        {
+          "id": "1276",
+          "title": "Descendant 1276",
+          "status": "current",
+          "type": "page",
+          "parentId": "1",
+          "depth": 1
+        },
+        {
+          "id": "1277",
+          "title": "Descendant 1277",
+          "status": "current",
+          "type": "page",
+          "parentId": "1",
+          "depth": 1
+        },
+        {
+          "id": "1278",
+          "title": "Descendant 1278",
+          "status": "current",
+          "type": "page",
+          "parentId": "1",
+          "depth": 1
+        },
+        {
+          "id": "1279",
+          "title": "Descendant 1279",
+          "status": "current",
+          "type": "page",
+          "parentId": "1",
+          "depth": 1
+        },
+        {
+          "id": "1280",
+          "title": "Descendant 1280",
+          "status": "current",
+          "type": "page",
+          "parentId": "1",
+          "depth": 1
+        },
+        {
+          "id": "1281",
+          "title": "Descendant 1281",
+          "status": "current",
+          "type": "page",
+          "parentId": "1",
+          "depth": 1
+        },
+        {
+          "id": "1282",
+          "title": "Descendant 1282",
+          "status": "current",
+          "type": "page",
+          "parentId": "1",
+          "depth": 1
+        },
+        {
+          "id": "1283",
+          "title": "Descendant 1283",
+          "status": "current",
+          "type": "page",
+          "parentId": "1",
+          "depth": 1
+        },
+        {
+          "id": "1284",
+          "title": "Descendant 1284",
+          "status": "current",
+          "type": "page",
+          "parentId": "1",
+          "depth": 1
+        },
+        {
+          "id": "1285",
+          "title": "Descendant 1285",
+          "status": "current",
+          "type": "page",
+          "parentId": "1",
+          "depth": 1
+        },
+        {
+          "id": "1286",
+          "title": "Descendant 1286",
+          "status": "current",
+          "type": "page",
+          "parentId": "1",
+          "depth": 1
+        },
+        {
+          "id": "1287",
+          "title": "Descendant 1287",
+          "status": "current",
+          "type": "page",
+          "parentId": "1",
+          "depth": 1
+        },
+        {
+          "id": "1288",
+          "title": "Descendant 1288",
+          "status": "current",
+          "type": "page",
+          "parentId": "1",
+          "depth": 1
+        },
+        {
+          "id": "1289",
+          "title": "Descendant 1289",
+          "status": "current",
+          "type": "page",
+          "parentId": "1",
+          "depth": 1
+        },
+        {
+          "id": "1290",
+          "title": "Descendant 1290",
+          "status": "current",
+          "type": "page",
+          "parentId": "1",
+          "depth": 1
+        },
+        {
+          "id": "1291",
+          "title": "Descendant 1291",
+          "status": "current",
+          "type": "page",
+          "parentId": "1",
+          "depth": 1
+        },
+        {
+          "id": "1292",
+          "title": "Descendant 1292",
+          "status": "current",
+          "type": "page",
+          "parentId": "1",
+          "depth": 1
+        },
+        {
+          "id": "1293",
+          "title": "Descendant 1293",
+          "status": "current",
+          "type": "page",
+          "parentId": "1",
+          "depth": 1
+        },
+        {
+          "id": "1294",
+          "title": "Descendant 1294",
+          "status": "current",
+          "type": "page",
+          "parentId": "1",
+          "depth": 1
+        },
+        {
+          "id": "1295",
+          "title": "Descendant 1295",
+          "status": "current",
+          "type": "page",
+          "parentId": "1",
+          "depth": 1
+        },
+        {
+          "id": "1296",
+          "title": "Descendant 1296",
+          "status": "current",
+          "type": "page",
+          "parentId": "1",
+          "depth": 1
+        },
+        {
+          "id": "1297",
+          "title": "Descendant 1297",
+          "status": "current",
+          "type": "page",
+          "parentId": "1",
+          "depth": 1
+        },
+        {
+          "id": "1298",
+          "title": "Descendant 1298",
+          "status": "current",
+          "type": "page",
+          "parentId": "1",
+          "depth": 1
+        },
+        {
+          "id": "1299",
+          "title": "Descendant 1299",
+          "status": "current",
+          "type": "page",
+          "parentId": "1",
+          "depth": 1
+        },
+        {
+          "id": "1300",
+          "title": "Descendant 1300",
+          "status": "current",
+          "type": "page",
+          "parentId": "1",
+          "depth": 1
+        },
+        {
+          "id": "1301",
+          "title": "Descendant 1301",
+          "status": "current",
+          "type": "page",
+          "parentId": "1",
+          "depth": 1
+        },
+        {
+          "id": "1302",
+          "title": "Descendant 1302",
+          "status": "current",
+          "type": "page",
+          "parentId": "1",
+          "depth": 1
+        },
+        {
+          "id": "1303",
+          "title": "Descendant 1303",
+          "status": "current",
+          "type": "page",
+          "parentId": "1",
+          "depth": 1
+        },
+        {
+          "id": "1304",
+          "title": "Descendant 1304",
+          "status": "current",
+          "type": "page",
+          "parentId": "1",
+          "depth": 1
+        },
+        {
+          "id": "1305",
+          "title": "Descendant 1305",
+          "status": "current",
+          "type": "page",
+          "parentId": "1",
+          "depth": 1
+        },
+        {
+          "id": "1306",
+          "title": "Descendant 1306",
+          "status": "current",
+          "type": "page",
+          "parentId": "1",
+          "depth": 1
+        },
+        {
+          "id": "1307",
+          "title": "Descendant 1307",
+          "status": "current",
+          "type": "page",
+          "parentId": "1",
+          "depth": 1
+        },
+        {
+          "id": "1308",
+          "title": "Descendant 1308",
+          "status": "current",
+          "type": "page",
+          "parentId": "1",
+          "depth": 1
+        },
+        {
+          "id": "1309",
+          "title": "Descendant 1309",
+          "status": "current",
+          "type": "page",
+          "parentId": "1",
+          "depth": 1
+        }
+      ],
+      "_links": {}
+    }
+  }
+}

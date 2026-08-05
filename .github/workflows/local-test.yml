@@ -1,0 +1,56 @@
+name: Local action test
+
+on:
+  workflow_dispatch:
+    inputs:
+      base-url-override:
+        description: "Simulator URL, when the service container is not reachable by hostname"
+        required: false
+        default: ''
+
+permissions:
+  contents: read
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    services:
+      wiremock:
+        image: wiremock/wiremock:3.9.1
+        ports: ['8080:8080']
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Load the simulator mappings
+        env:
+          SIMULATOR: ${{ inputs.base-url-override || 'http://wiremock:8080' }}
+        run: |
+          for file in test/wiremock/mappings/*.json; do
+            curl -sS -X POST --data-binary "@$file" "$SIMULATOR/__admin/mappings" > /dev/null
+          done
+
+      - name: Run the action in dry-run
+        uses: ./
+        with:
+          folder: test/fixtures/docs
+          base-url: ${{ inputs.base-url-override || 'http://wiremock:8080' }}
+          username: ${{ secrets.CONFLUENCE_USERNAME }}
+          api-token: ${{ secrets.CONFLUENCE_API_TOKEN }}
+          space-key: DOC
+          parent-page-id: '2000'
+          dry-run: 'true'
+
+      - name: Run the action for real against the simulator
+        id: publish
+        uses: ./
+        with:
+          folder: test/fixtures/docs
+          base-url: ${{ inputs.base-url-override || 'http://wiremock:8080' }}
+          username: ${{ secrets.CONFLUENCE_USERNAME }}
+          api-token: ${{ secrets.CONFLUENCE_API_TOKEN }}
+          space-key: DOC
+          parent-page-id: '2000'
+          fail-on-error: 'false'
+
+      - name: Show the outputs
+        run: echo "created=${{ steps.publish.outputs.created }} skipped=${{ steps.publish.outputs.skipped }} failed=${{ steps.publish.outputs.failed }}"

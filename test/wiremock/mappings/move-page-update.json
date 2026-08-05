@@ -1,0 +1,15 @@
+{
+  "request": { "method": "PUT", "urlPath": "/wiki/api/v2/pages/4100" },
+  "response": {
+    "status": 200,
+    "headers": { "Content-Type": "application/json" },
+    "transformers": ["response-template"],
+    "jsonBody": {
+      "id": "4100",
+      "title": "Relocated",
+      "status": "current",
+      "parentId": "{{jsonPath request.body '$.parentId'}}",
+      "spaceId": "42"
+    }
+  }
+}

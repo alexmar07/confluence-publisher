@@ -1,0 +1,8 @@
+{
+  "request": { "method": "GET", "urlPath": "/wiki/api/v2/folders/999" },
+  "response": {
+    "status": 200,
+    "headers": { "Content-Type": "application/json" },
+    "jsonBody": { "id": "999", "title": "Folder", "type": "folder", "spaceId": "42" }
+  }
+}

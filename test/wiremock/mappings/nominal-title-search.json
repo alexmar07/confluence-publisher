@@ -1,0 +1,9 @@
+{
+  "priority": 10,
+  "request": { "method": "GET", "urlPath": "/wiki/api/v2/pages" },
+  "response": {
+    "status": 200,
+    "headers": { "Content-Type": "application/json" },
+    "jsonBody": { "results": [], "_links": {} }
+  }
+}

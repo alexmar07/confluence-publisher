@@ -1,0 +1,12 @@
+{
+  "request": {
+    "method": "POST",
+    "urlPath": "/wiki/api/v2/pages",
+    "bodyPatterns": [{ "matchesJsonPath": "$[?(@.title == 'Bad XHTML')]" }]
+  },
+  "response": {
+    "status": 400,
+    "headers": { "Content-Type": "application/json" },
+    "jsonBody": { "errors": [{ "title": "Bad Request", "detail": "Error parsing storage format near line 1" }] }
+  }
+}

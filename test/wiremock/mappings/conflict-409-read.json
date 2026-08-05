@@ -1,0 +1,8 @@
+{
+  "request": { "method": "GET", "urlPath": "/wiki/api/v2/pages/500" },
+  "response": {
+    "status": 200,
+    "headers": { "Content-Type": "application/json" },
+    "jsonBody": { "id": "500", "title": "Contested", "status": "current", "parentId": "2000", "spaceId": "42", "version": { "number": 12 } }
+  }
+}
