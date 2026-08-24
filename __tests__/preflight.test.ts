@@ -67,6 +67,16 @@ describe('preflightEnvironment', () => {
     expect(error.message).toMatch(/different space/i);
   });
 
+  it('blocks when the parent page is archived, which GET resolves but POST rejects', async () => {
+    const client = clientFor({
+      ...space,
+      '/wiki/api/v2/pages/1': () => json({ id: '1', title: 'Archived Docs', status: 'archived', spaceId: '42' }),
+    });
+    const error = (await preflightEnvironment(client, 'DOC', '1').catch((e: unknown) => e)) as Error;
+    expect(error.message).toMatch(/has status "archived"/i);
+    expect(error.message).toMatch(/Restore the page/i);
+  });
+
   it('blocks when the parent belongs to another space', async () => {
     const client = clientFor({
       ...space,

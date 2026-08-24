@@ -56,6 +56,15 @@ describe('parseConfig', () => {
     expect(() => parseConfig({ ...valid, concurrency: '0' })).toThrow(/concurrency/);
   });
 
+  it('strips a trailing /wiki from base-url, since request paths already carry it', () => {
+    expect(parseConfig({ ...valid, 'base-url': 'https://acme.atlassian.net/wiki' }).baseUrl).toBe(
+      'https://acme.atlassian.net',
+    );
+    expect(parseConfig({ ...valid, 'base-url': 'https://acme.atlassian.net/wiki/' }).baseUrl).toBe(
+      'https://acme.atlassian.net',
+    );
+  });
+
   it('rejects a base-url that is not http(s)', () => {
     expect(() => parseConfig({ ...valid, 'base-url': 'ftp://acme' })).toThrow(/base-url/);
   });

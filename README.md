@@ -64,7 +64,7 @@ jobs:
 | Name | Required | Default | Description |
 |---|---|---|---|
 | `folder` | Yes | — | Root folder of the Markdown files, relative to the repository root |
-| `base-url` | Yes | — | `https://<tenant>.atlassian.net` |
+| `base-url` | Yes | — | `https://<tenant>.atlassian.net` — site root, **not** the `/wiki` URL you see in the browser (a trailing `/wiki` is stripped for you) |
 | `username` | Yes | — | Email address of the Atlassian account |
 | `api-token` | Yes | — | Atlassian API token |
 | `space-key` | Yes | — | Key of the target Confluence space |

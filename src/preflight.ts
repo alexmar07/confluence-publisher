@@ -51,6 +51,15 @@ export async function preflightEnvironment(
       `parent-page-id "${parentPageId}" is neither a Page nor a Folder. The remaining causes are: the page is deleted or in the trash, or it lives in a different space than "${spaceKey}".`,
     );
   }
+  // `GET /pages/{id}` resolves archived and trashed pages just as happily as current ones, so a
+  // parent that exists is not yet a parent that can hold children: `POST /pages` answers a
+  // non-current `parentId` with a bare 404 "Cannot find content with id", once per source file,
+  // long after the preflight has declared the environment sound.
+  if (page.status !== 'current') {
+    throw new PreflightError(
+      `parent-page-id "${parentPageId}" ("${page.title}") has status "${page.status}", not "current". Confluence refuses to create children under it. Restore the page from the space's archive or trash, or pick a current page.`,
+    );
+  }
   if (page.spaceId !== null && page.spaceId !== spaceId) {
     throw new PreflightError(
       `parent-page-id "${parentPageId}" belongs to space id ${page.spaceId}, while space-key "${spaceKey}" resolves to ${spaceId}. Publishing would build the tree in the wrong space and check title uniqueness against it.`,

@@ -106,7 +106,13 @@ export function parseConfig(raw: Raw): Config {
     throw new ConfigError(`Input "folder" must be a relative path inside the repository, got "${rawFolder}".`);
   }
 
-  const baseUrl = required(raw, 'base-url').replace(/\/+$/, '');
+  // Every request path in `src/confluence/` is written as "/wiki/...", so the base URL must be the
+  // site root. A user who pastes the URL they see in the browser ("https://x.atlassian.net/wiki")
+  // would otherwise produce "/wiki/wiki/api/v2/..." — a path Confluence answers with its SPA shell
+  // and a bare HTTP 404, which reads as "space not found" rather than "base-url is wrong".
+  const baseUrl = required(raw, 'base-url')
+    .replace(/\/+$/, '')
+    .replace(/\/wiki$/i, '');
   if (!/^https?:\/\//.test(baseUrl)) {
     throw new ConfigError(`Input "base-url" must start with http:// or https://, got "${baseUrl}".`);
   }

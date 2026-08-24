@@ -3,7 +3,7 @@ description: "Publish a Markdown folder to Confluence Cloud (REST API v2), idemp
 branding: { icon: "book-open", color: "blue" }
 inputs:
   folder:            { required: true,  description: "Root folder of the Markdown files, relative to the repository root" }
-  base-url:          { required: true,  description: "https://<tenant>.atlassian.net" }
+  base-url:          { required: true,  description: "https://<tenant>.atlassian.net (site root, without /wiki)" }
   username:          { required: true,  description: "Email address of the Atlassian account" }
   api-token:         { required: true,  description: "Atlassian API token" }
   space-key:         { required: true,  description: "Key of the Confluence space" }
