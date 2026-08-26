@@ -1,6 +1,6 @@
 {
   "name": "confluence-docs-publisher",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Publish a Markdown folder to Confluence Cloud via REST API v2",
   "scripts": {
     "test": "vitest run",
