@@ -3,30 +3,50 @@ name: Release
 on:
   push:
     tags: ['v*.*.*']
+  workflow_dispatch:
+    inputs:
+      bump:
+        description: "Semver level to apply to the version in package.json"
+        type: choice
+        options: [patch, minor, major]
+        default: patch
 
 permissions:
   contents: write
 
+# Two releases racing would both force-move the same floating major tag, and the
+# loser would silently win. Serialise them instead.
+concurrency:
+  group: release
+  cancel-in-progress: false
+
 jobs:
-  tag-major:
+  release:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
         with: { fetch-depth: 0 }
 
-      # I4: Actions' tag glob `*` matches any character but `/`, so the trigger above
+      # I4: Actions' tag glob `*` matches any character but `/`, so the tag trigger above
       # (`v*.*.*`) also fires for a prerelease like `v2.0.0-rc.1`, and
-      # `MAJOR="${GITHUB_REF_NAME%%.*}"` below would still reduce it to `v2` — silently
+      # `MAJOR="${VERSION%%.*}"` below would still reduce it to `v2` — silently
       # force-moving every consumer pinned to `@v2` onto an untested release candidate.
-      # This guard narrows the actual release step to an exact `vMAJOR.MINOR.PATCH` tag;
-      # anything else is left alone.
-      - name: Check that the tag is an exact release, not a prerelease
+      # This guard narrows the release to an exact `vMAJOR.MINOR.PATCH` tag; anything
+      # else is left alone. A `workflow_dispatch` run always releases: it derives its own
+      # tag from `npm version`, which cannot produce a prerelease here.
+      - name: Decide whether this run releases, and how the version is obtained
         id: guard
         run: |
-          if [[ "$GITHUB_REF_NAME" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+          if [[ "$GITHUB_EVENT_NAME" == "workflow_dispatch" ]]; then
             echo "release=true" >> "$GITHUB_OUTPUT"
+            echo "bump=true"    >> "$GITHUB_OUTPUT"
+          elif [[ "$GITHUB_REF_NAME" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "release=true" >> "$GITHUB_OUTPUT"
+            echo "bump=false"   >> "$GITHUB_OUTPUT"
+            echo "version=$GITHUB_REF_NAME" >> "$GITHUB_OUTPUT"
           else
             echo "release=false" >> "$GITHUB_OUTPUT"
+            echo "bump=false"    >> "$GITHUB_OUTPUT"
             echo "::notice::$GITHUB_REF_NAME does not match vMAJOR.MINOR.PATCH exactly (prerelease or malformed) — not moving the floating major tag."
           fi
 
@@ -36,21 +56,66 @@ jobs:
           node-version: '24'
           cache: npm
 
+      - name: Install
+        if: steps.guard.outputs.release == 'true'
+        run: npm ci
+
       # I5: for a bundled action dist/index.js is the published artefact, and ci.yml triggers
       # only on branch pushes and pull requests, never on tags — so nothing re-verifies the
       # tagged commit before the major tag is force-moved onto it. Re-run the same checks CI
-      # runs before touching the tag.
-      - name: Verify the tagged commit builds, tests green, and dist/ is up to date
+      # runs before touching the tag. On the dispatch path this is the only gate there is.
+      - name: Verify the released commit lints, typechecks, tests green, and builds
         if: steps.guard.outputs.release == 'true'
         run: |
-          npm ci
+          npm run lint
+          npm run typecheck
           npm test
           npm run build
-          git diff --exit-code -- dist/
+
+      # Only meaningful when the tag already exists: whoever created it had to commit dist/
+      # themselves. The dispatch path commits the rebuild below instead, so a diff there is
+      # the expected outcome, not a failure.
+      - name: Verify that dist/ is up to date
+        if: steps.guard.outputs.release == 'true' && steps.guard.outputs.bump == 'false'
+        run: git diff --exit-code -- dist/
+
+      - name: Bump the version, commit dist/, and create the tag
+        id: bump
+        if: steps.guard.outputs.bump == 'true'
+        env:
+          BUMP: ${{ inputs.bump }}
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          # `npm version` prints the new version already prefixed with `v`, which is exactly
+          # the shape the tag trigger and the major-tag derivation below expect.
+          VERSION="$(npm version "$BUMP" --no-git-tag-version)"
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          git add package.json package-lock.json dist/
+          git commit -m "chore(release): $VERSION"
+          git tag -a "$VERSION" -m "$VERSION"
+          git push origin "HEAD:$GITHUB_REF_NAME"
+          git push origin "$VERSION"
+
+      - name: Resolve the released version
+        id: version
+        if: steps.guard.outputs.release == 'true'
+        run: echo "value=${{ steps.bump.outputs.version || steps.guard.outputs.version }}" >> "$GITHUB_OUTPUT"
 
       - name: Move the floating major tag
         if: steps.guard.outputs.release == 'true'
+        env:
+          VERSION: ${{ steps.version.outputs.value }}
         run: |
-          MAJOR="${GITHUB_REF_NAME%%.*}"
+          MAJOR="${VERSION%%.*}"
           git tag -f "$MAJOR"
           git push origin -f "$MAJOR"
+
+      # The GitHub Release, not the tag, is what the Marketplace listing publishes from.
+      # `gh` ships on the runner, so this needs no third-party action.
+      - name: Publish the GitHub Release
+        if: steps.guard.outputs.release == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          VERSION: ${{ steps.version.outputs.value }}
+        run: gh release create "$VERSION" --title "$VERSION" --generate-notes
